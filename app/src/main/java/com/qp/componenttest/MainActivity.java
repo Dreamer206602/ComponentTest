@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.luojilab.component.componentlib.router.Router;
+import com.luojilab.component.componentlib.router.ui.UIRouter;
 import com.luojilab.router.facade.annotation.RouteNode;
 import com.qp.componentservice.readerbook.ReadBookService;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button installReadBookBtn;
     Button uninstallReadBtn;
+    Button btnRxJava;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         installReadBookBtn = (Button) findViewById(R.id.install_share);
         uninstallReadBtn = (Button) findViewById(R.id.uninstall_share);
+        btnRxJava = (Button) findViewById(R.id.btn_rxjava);
+        btnRxJava.setOnClickListener(this);
         installReadBookBtn.setOnClickListener(this);
         uninstallReadBtn.setOnClickListener(this);
         showFragment();
@@ -55,9 +59,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.install_share:
                 Router.registerComponent("com.qp.sharecomponent.applike.ShareAppLike");
+                Router.registerComponent("com.qp.component.applike.RxJavaAppLike");
                 break;
             case R.id.uninstall_share:
                 Router.unregisterComponent("com.qp.sharecomponent.applike.ShareAppLike");
+                Router.unregisterComponent("com.qp.component.applike.RxJavaAppLike");
+                break;
+
+            case R.id.btn_rxjava:
+                UIRouter.getInstance().openUri(this,"DDComp://rxjava/RxjavaRetofit",null);
                 break;
         }
     }
